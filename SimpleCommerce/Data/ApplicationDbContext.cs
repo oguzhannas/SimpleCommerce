@@ -10,6 +10,9 @@ namespace SimpleCommerce.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<SimpleCommerce.Models.Product> Products { get; set; }
+        public DbSet<SimpleCommerce.Models.Category> Categories { get; set; }
+    
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
