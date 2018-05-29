@@ -4,14 +4,21 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SimpleCommerce.Data;
 using SimpleCommerce.Models;
 
 namespace SimpleCommerce.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
+        
+        public HomeController(ApplicationDbContext context):base(context)
+        {
+            
+        }
         public IActionResult Index()
         {
+          
             return View();
         }
 
@@ -33,5 +40,6 @@ namespace SimpleCommerce.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+  
     }
 }

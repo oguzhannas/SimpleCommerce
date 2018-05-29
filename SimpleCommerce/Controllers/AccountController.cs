@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SimpleCommerce.Data;
 using SimpleCommerce.Models;
 using SimpleCommerce.Models.AccountViewModels;
 using SimpleCommerce.Services;
@@ -18,7 +19,7 @@ namespace SimpleCommerce.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -29,7 +30,7 @@ namespace SimpleCommerce.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,ApplicationDbContext context):base(context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
