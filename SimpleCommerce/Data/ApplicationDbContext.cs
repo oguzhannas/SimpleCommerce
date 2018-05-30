@@ -12,7 +12,8 @@ namespace SimpleCommerce.Data
     {
         public DbSet<SimpleCommerce.Models.Product> Products { get; set; }
         public DbSet<SimpleCommerce.Models.Category> Categories { get; set; }
-    
+        public DbSet<SimpleCommerce.Models.Slide> Slides { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

@@ -6,22 +6,20 @@ using System.Threading.Tasks;
 
 namespace SimpleCommerce.Models
 {
-    public class Category
+    public class Slide
     {
-        public Category()
-        {
-            Products = new HashSet<Product>();
-        }
         public int Id { get; set; }
+        [Display(Name="Ad")]
         [Required]
         [StringLength(200)]
-        [Display(Name="Kategori Adı")]
         public string Name { get; set; }
-        [Display(Name="Ürünler")]
-        public virtual ICollection<Product> Products{ get; set; }
         [StringLength(200)]
-        [Display(Name = "Resim")]
+        [Display(Name="Resim")]
         public string Photo { get; set; }
-
+        [StringLength(200)]
+        public string Url { get; set; }
+        [Display(Name="Pozisyon")]
+        public int Position { get; set; }
+        public bool IsPublished { get; set; }
     }
 }

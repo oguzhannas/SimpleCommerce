@@ -16,26 +16,24 @@ namespace SimpleCommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize]
-    public class CategoriesController : Controller
+    public class SlidesController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _environment;
 
-        public CategoriesController(ApplicationDbContext context, IHostingEnvironment environment)
+        public SlidesController(ApplicationDbContext context, IHostingEnvironment environment)
         {
             _context = context;
             _environment = environment;
         }
 
-   
-
-        // GET: Admin/Categories
+        // GET: Admin/Slides
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Slides.ToListAsync());
         }
 
-        // GET: Admin/Categories/Details/5
+        // GET: Admin/Slides/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,29 +41,29 @@ namespace SimpleCommerce.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var slide = await _context.Slides
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (slide == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(slide);
         }
 
-        // GET: Admin/Categories/Create
+        // GET: Admin/Slides/Create
         public IActionResult Create()
         {
-            var category = new Category();
-            return View(category);
+            var slide = new Slide();
+            return View(slide);
         }
 
-        // POST: Admin/Categories/Create
+        // POST: Admin/Slides/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Photo")] Category category, IFormFile File)
+        public async Task<IActionResult> Create([Bind("Id,Name,Photo,Url,IsPublished")] Slide slide,IFormFile File)
         {
             if (ModelState.IsValid)
             {
@@ -86,16 +84,15 @@ namespace SimpleCommerce.Areas.Admin.Controllers
                         await File.CopyToAsync(stream);
                     }
                     //dosya adı entitiy'e atanır
-                    category.Photo = File.FileName;
+                    slide.Photo = File.FileName;
                 }
-                _context.Add(category);
+                _context.Add(slide);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View(category);
+
+            return View(slide);
         }
-        // GET: Admin/Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -103,26 +100,21 @@ namespace SimpleCommerce.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            var slide = await _context.Slides.SingleOrDefaultAsync(m => m.Id == id);
+            if (slide == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(slide);
         }
 
-        // POST: Admin/Categories/Edit/5
+        // POST: Admin/Slides/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Photo")] Category category,IFormFile File)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Photo,Url,IsPublished")] Slide slide,IFormFile File)
         {
-            if (id != category.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 if (File != null && File.Length > 0)
@@ -142,31 +134,15 @@ namespace SimpleCommerce.Areas.Admin.Controllers
                         await File.CopyToAsync(stream);
                     }
                     //dosya adı entitiy'e atanır
-                    category.Photo = File.FileName;
+                    slide.Photo = File.FileName;
                 }
-                try
-                {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                _context.Add(slide);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View(category);
-        }
 
-        // GET: Admin/Categories/Delete/5
+            return View(slide);
+        }
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -174,30 +150,30 @@ namespace SimpleCommerce.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var slide = await _context.Slides
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (slide == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(slide);
         }
 
-        // POST: Admin/Categories/Delete/5
+        // POST: Admin/Slides/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Categories.Remove(category);
+            var slide = await _context.Slides.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Slides.Remove(slide);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool SlideExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Slides.Any(e => e.Id == id);
         }
     }
 }

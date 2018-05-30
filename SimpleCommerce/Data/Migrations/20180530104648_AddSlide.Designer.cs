@@ -11,9 +11,10 @@ using System;
 namespace SimpleCommerce.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180530104648_AddSlide")]
+    partial class AddSlide
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,21 +231,15 @@ namespace SimpleCommerce.Data.Migrations
 
                     b.Property<bool>("IsPublished");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(200);
-
                     b.Property<string>("Photo")
                         .HasMaxLength(200);
-
-                    b.Property<int>("Position");
 
                     b.Property<string>("Url")
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Slides");
+                    b.ToTable("Slide");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
