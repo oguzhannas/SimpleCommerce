@@ -9,6 +9,11 @@ namespace SimpleCommerce.Models
 {
     public class Product
     {
+        public Product()
+        {
+            CreateDate = DateTime.Now;
+        }
+
         public int Id { get; set; }
         [Required]
         [StringLength(200)]
@@ -23,6 +28,8 @@ namespace SimpleCommerce.Models
         public decimal Price { get; set; }
         [Display(Name="Stok")]
         public int Stock { get; set; }
+        [Display(Name="Oluşturulma Tarihi")]
+        public DateTime? CreateDate { get; set; }
 
         [Display(Name="Kategori")]
         public int CategoryId { get; set; }
