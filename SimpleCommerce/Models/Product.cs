@@ -25,11 +25,16 @@ namespace SimpleCommerce.Models
         [Display(Name="Resim")]
         public string Photo { get; set; }
         [Display(Name ="Fiyat")]
+        [DisplayFormat(DataFormatString = "0,000.00")]
         public decimal Price { get; set; }
         [Display(Name="Stok")]
         public int Stock { get; set; }
         [Display(Name="Oluşturulma Tarihi")]
         public DateTime? CreateDate { get; set; }
+        [Display(Name="Öne Çıkan")]
+        public bool IsFeatured { get; set; }
+        [Display(Name="Yayında Olanlar")]
+        public bool IsPublished { get; set; }
 
         [Display(Name="Kategori")]
         public int CategoryId { get; set; }

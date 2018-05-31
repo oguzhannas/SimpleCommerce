@@ -19,14 +19,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <textarea asp-for="Description" class="form-control" ></textarea>
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input asp-for="Photo" type="hidden" />
                 <label asp-for="Photo" class="control-label"></label>
-                @if (!string.IsNullOrEmpty(Model.Photo)) { 
-                <img src="~/Uploads/@Model.Photo" width="50" />}
+                @if (!string.IsNullOrEmpty(Model.Photo))
+                {
+                    <img src="~/Uploads/@Model.Photo" width="50" />}
                 <input name="File" class="form-control" type="file" />
                 <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
@@ -41,8 +42,18 @@
                 <span asp-validation-for="Stock" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="IsFeatured" class="control-label"></label>
+                <input asp-for="IsFeatured" />
+                <span asp-validation-for="IsFeatured" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPublished" class="control-label"></label>
+                <input asp-for="IsPublished" />
+                <span asp-validation-for="IsPublished" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

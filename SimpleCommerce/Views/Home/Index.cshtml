@@ -66,7 +66,7 @@
                                     <h3><a href="#">@item.Name</a></h3>
                                 </div>
                                 <div class="product-price">
-                                    <ins>₺@item.Price</ins>
+                                    <ins>₺@string.Format("{0:0,000.00}",item.Price)</ins>
                                 </div>
 
 
@@ -98,7 +98,7 @@
                             <a href="@Url.Action("Index","Products",new { categoryId = item.Id })">
                                 <img alt="" src="~/Uploads/@item.Photo">
                                 <div class="shop-category-box-title text-center">
-                                <h6>@item.Name</h6>    <small>@item.Products.Count ürün</small>
+                                <h6>@item.Name</h6>    <small>@item.PublishedProducts.Count ürün</small>
                                 </div>
                             </a>
                         </div>
