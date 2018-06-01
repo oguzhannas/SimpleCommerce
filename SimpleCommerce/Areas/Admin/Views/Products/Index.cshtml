@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SimpleCommerce.Models.Product>
+﻿@model PagingList<Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,6 +9,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form id="form1" method="get">
+    <select name="categoryId" asp-items="@ViewBag.Categories" onchange="$('#form1').submit();">
+        <option value="">Tüm Kategoriler</option>
+
+    </select>
+
+
+</form>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -66,3 +76,4 @@
 }
     </tbody>
 </table>
+<vc:pager paging-list="@Model"/> 

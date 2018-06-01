@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SimpleCommerce.Data;
 using SimpleCommerce.Models;
 
@@ -19,7 +20,7 @@ namespace SimpleCommerce.Controllers
         public IActionResult Index()
         {
             ViewBag.FeaturedProducts = _context.Products.Where(o=> o.IsFeatured == true && o.IsPublished == true ).Take(8).ToList();
-            ViewBag.BrowseCategories = _context.Categories.Take(4).ToList();
+            ViewBag.BrowseCategories = _context.Categories.Include(c=> c.Products).Take(4).ToList();
             ViewBag.Slides = _context.Slides.Where(s=> s.IsPublished == true).OrderBy(o=>o.Position).Take(3).ToList();
 
             return View();
