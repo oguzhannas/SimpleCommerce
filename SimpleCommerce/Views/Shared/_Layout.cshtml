@@ -144,8 +144,8 @@
                     <!--END: MOBILE MENU -->
                     <!--SHOPPING CART -->
                     <div id="shopping-cart">
-                        <span class="shopping-cart-items">8</span>
-                        <a href="/shop-cart.html"><i class="fa fa-shopping-cart"></i></a>
+                        <span class="shopping-cart-items">@ViewBag.CartItemCount</span>
+                        <a href="@Url.Action("Cart","Shop")"><i class="fa fa-shopping-cart"></i></a>
                     </div>
                     <!--END: SHOPPING CART -->
                     <!--TOP SEARCH -->
@@ -340,7 +340,21 @@
     <script src="/js/custom.js"></script>
 
     @* View lar bu bölüme script ekleyebilecek *@
+    <script>function AddToCart(productId)
+{
+    $.post("/Shop/AddToCart", { productId: productId }, function (result) {
+        if (result == true) {
+            alert("Ürün Sepete Eklenmiştir.");
 
+        } else {
+            alert("Beklenmeyen Bir Hata Oluştu Lütfen Tekrar Deneyin...");
+
+        }
+        
+    });
+
+    }
+    </script>
     @RenderSection("Scripts",required:false)
 
 
