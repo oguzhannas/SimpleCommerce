@@ -38,6 +38,7 @@ namespace SimpleCommerce
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            services.AddSession();
             //sayfalama konfigürasyonu
             services.AddPaging(options => { options.ViewName = "Bootstrap4"; options.HtmlIndicatorDown = "<span>&darr;</span>"; options.HtmlIndicatorUp = "<span>&uarr;</span>"; });
         }
@@ -59,6 +60,7 @@ namespace SimpleCommerce
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

@@ -35,7 +35,7 @@ namespace SimpleCommerce.Controllers
         }
         protected Cart GetCart(string owner)
         {
-            Cart cart = _context.Carts.Include(i => i.CartItems).Where(c => c.Owner == owner).FirstOrDefault();
+            Cart cart = _context.Carts.Include(i => i.CartItems).ThenInclude(t=>t.Product).Where(c => c.Owner == owner).FirstOrDefault();
             if (cart == null)
             {
                 cart = new Cart();

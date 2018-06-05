@@ -343,14 +343,8 @@
     <script>function AddToCart(productId)
 {
     $.post("/Shop/AddToCart", { productId: productId }, function (result) {
-        if (result == true) {
-            alert("Ürün Sepete Eklenmiştir.");
-
-        } else {
-            alert("Beklenmeyen Bir Hata Oluştu Lütfen Tekrar Deneyin...");
-
-        }
-        
+        $(".shopping-cart-items").html(result);
+        alert("Sepete Ürün Eklendi");
     });
 
     }
