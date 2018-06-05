@@ -14,7 +14,10 @@ namespace SimpleCommerce.Data
         public DbSet<SimpleCommerce.Models.Category> Categories { get; set; }
         public DbSet<SimpleCommerce.Models.Slide> Slides { get; set; }
         public DbSet<SimpleCommerce.Models.Cart> Carts { get; set; }
-        public DbSet<SimpleCommerce.Models.CartItem> CartItems { get; set; }
+        public DbSet<SimpleCommerce.Models.Order> Orders { get; set; }
+        public DbSet<SimpleCommerce.Models.Customer> Customers { get; set; }
+        public DbSet<SimpleCommerce.Models.Region> Regions { get; set; }
+        
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
