@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using SimpleCommerce.Data;
@@ -41,7 +42,11 @@ namespace SimpleCommerce.Controllers
                 cart = new Cart();
                 cart.Owner = owner;
                 _context.Carts.Add(cart);
+                _context.SaveChanges();
+                
             }
+
+            HttpContext.Session.SetString("CartId", cart.Id.ToString());
             return cart;
         }
     }

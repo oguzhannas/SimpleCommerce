@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SimpleCommerce.Data;
 using SimpleCommerce.Models;
@@ -72,9 +74,32 @@ namespace SimpleCommerce.Controllers
             Cart cart = GetCart(owner);
             return View(cart);
         }
+        [Authorize]
         public IActionResult Checkout()
         {
-            return View();
+            
+
+            string owner = User.Identity.Name;
+            if (string.IsNullOrEmpty(owner))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var order = GetOrder(owner);
+            ViewBag.Countries =new SelectList(_context.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(),"Code","Name");
+            return View(order);
+        }
+        public Order GetOrder(string owner)
+        {
+            Order order = _context.Orders.Where(o => o.Owner == owner).FirstOrDefault();
+            if(order == null)
+            {
+                order = new Order();
+                order.CartId = Convert.ToInt32(HttpContext.Session.GetString("CartId"));
+                order.OrderStatus = OrderStatus.WaitingPaymentApproval;
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+            }
+            return order;
         }
         
       
