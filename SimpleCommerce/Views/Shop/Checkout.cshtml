@@ -32,10 +32,13 @@
 </section>
 <!-- END: PAGE TITLE -->
 <!-- SHOP CHECKOUT -->
-<section id="shop-checkout">
-    <div class="container">
-        <div class="shop-cart">
-            <form method="post" class="sep-top-md">
+<form method="post" class="sep-top-md">
+    <input asp-for="CartId" type="hidden" />
+    <input asp-for="CustomerId" type="hidden" />
+    <section id="shop-checkout">
+        <div class="container">
+            <div class="shop-cart">
+
                 <div class="row">
                     <div class="col-md-6 no-padding">
                         <div class="col-md-12">
@@ -43,357 +46,143 @@
                         </div>
                         <div class="col-md-12 form-group">
                             <label class="sr-only">Ülke</label>
-                            <select asp-for="Customer.BillingCountry" class="fullwidth" asp-items="ViewBag.Countries">
+                            <select asp-for="Customer.BillingCountry" class="fullwidth" asp-items="ViewBag.BillingCountries" onchange="BillingCountryChange(this)">
                                 <option value="">Ülke Seçiniz</option>
 
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">First Name</label>
-                            <input type="text" class="form-control input-lg" placeholder="First Name" value="">
+                            <label class="sr-only">Ad</label>
+                            <input asp-for="Customer.BillingFirstName" type="text" class="form-control input-lg" placeholder="Ad">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">Last Name</label>
-                            <input type="text" class="form-control input-lg" placeholder="Last Name" value="">
+                            <label class="sr-only">Soyad</label>
+                            <input asp-for="Customer.BillingLastName" type="text" class="form-control input-lg" placeholder="Soyad">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="sr-only">TC Kimlik No/Vergi No</label>
+                            <input asp-for="Customer.BillingIdentityNumber" type="text" class="form-control input-lg" placeholder="TC Kimlik No/Vergi No">
                         </div>
                         <div class="col-md-12 form-group">
-                            <label class="sr-only">Company Name</label>
-                            <input type="text" class="form-control input-lg" placeholder="Company Name" value="">
-                        </div>
-                        <div class="col-md-12 form-group">
-                            <label class="sr-only">Address</label>
-                            <input type="text" class="form-control input-lg" placeholder="Address" value="">
+                            <label class="sr-only">Firma Adı</label>
+                            <input asp-for="Customer.BillingCompanyName" type="text" class="form-control input-lg" placeholder="Firma Adı">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">Apartment, suite, unit etc.</label>
-                            <input type="text" class="form-control input-lg" placeholder="Apartment, suite, unit etc." value="">
+                            <label class="sr-only">Şehir</label>
+                            <select asp-for="Customer.BillingCity" class="form-control input-lg" placeholder="Şehir" onchange="BillingCityChange(this)">
+                                <option value="">Şehir Seçiniz</option>
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">Town / City</label>
-                            <input type="text" class="form-control input-lg" placeholder="Town / City" value="">
+                            <label class="sr-only">İlçe</label>
+                            <select asp-for="Customer.BillingCounty" class="form-control input-lg" placeholder="İlçe">
+                                <option value=""> İlçe Seçiniz</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="sr-only">Mahalle/Semt</label>
+                            <input asp-for="Customer.BillingDistrict" type="text" class="form-control input-lg" placeholder="Mahalle Semt">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">State / County</label>
-                            <input type="text" class="form-control input-lg" placeholder="State / County" value="">
+                            <label class="sr-only">Cadde/Sokak</label>
+                            <input asp-for="Customer.BillingStreet" type="text" class="form-control input-lg" placeholder="Cadde/Sokak">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">Postcode / Zip</label>
-                            <input type="text" class="form-control input-lg" placeholder="Postcode / Zip" value="">
+                            <label class="sr-only">Apartman,suit,kapı no, vb.</label>
+                            <input asp-for="Customer.BillingAdress" type="text" class="form-control input-lg" placeholder="Apartman,suit,kapı no, vb.">
+                        </div>
+
+
+                        <div class="col-md-6 form-group">
+                            <label class="sr-only">Posta Kodu</label>
+                            <input asp-for="Customer.BillingZipCode" type="text" class="form-control input-lg" placeholder="Posta Kodu">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">Email</label>
-                            <input type="text" class="form-control input-lg" placeholder="Email" value="">
+                            <label class="sr-only">E-Posta</label>
+                            <input asp-for="Customer.BillingEmail" type="text" class="form-control input-lg" placeholder="E-Posta">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label class="sr-only">Phone</label>
-                            <input type="text" class="form-control input-lg" placeholder="Phone" value="">
+                            <label class="sr-only">Telefon</label>
+                            <input asp-for="Customer.BillingPhone" type="text" class="form-control input-lg" placeholder="Telefon">
                         </div>
-                        <div class="col-md-12 form-group">
-                            <div class="panel panel-naked">
-                                <div class="panel-heading">
-                                    <a href="#collapseThree" data-toggle="collapse" class="collapsed" aria-expanded="false">Create an account <i class="fa fa-arrow-circle-o-down fa-lg"></i></a>
-                                </div>
-                                <div class="panel-collapse collapse" id="collapseThree" aria-expanded="false" style="height: 0px;">
-                                    <div class="panel-body">
-                                        <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
-                                        <div class="form-group sep-top-xs">
-                                            <label class="sr-only">Password</label>
-                                            <input type="password" class="form-control input-lg" placeholder="Password" value="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="col-md-6">
                         <h4 class="upper"><a href="#collapseFour" data-toggle="collapse" class="collapsed" aria-expanded="false"> Başka Adrese Kargola <i class="fa fa-arrow-circle-o-down"></i></a></h4>
                         <div class="col-md-12 no-padding">
                             <div style="height: 0px;" aria-expanded="false" id="collapseFour" class="panel-collapse row collapse">
                                 <div class="panel-body">
-                                    <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer please proceed to the Billing &amp; Shipping section.</p>
+
                                     <div class="sep-top-xs">
                                         <div class="row">
                                             <div class="col-md-12 form-group">
-                                                <label class="sr-only">Country</label>
-                                                <select class="fullwidth">
-                                                    <option value="AX">Åland Islands</option>
-                                                    <option value="AF">Afghanistan</option>
-                                                    <option value="AL">Albania</option>
-                                                    <option value="DZ">Algeria</option>
-                                                    <option value="AD">Andorra</option>
-                                                    <option value="AO">Angola</option>
-                                                    <option value="AI">Anguilla</option>
-                                                    <option value="AQ">Antarctica</option>
-                                                    <option value="AG">Antigua and Barbuda</option>
-                                                    <option value="AR">Argentina</option>
-                                                    <option value="AM">Armenia</option>
-                                                    <option value="AW">Aruba</option>
-                                                    <option value="AU">Australia</option>
-                                                    <option value="AT">Austria</option>
-                                                    <option value="AZ">Azerbaijan</option>
-                                                    <option value="BS">Bahamas</option>
-                                                    <option value="BH">Bahrain</option>
-                                                    <option value="BD">Bangladesh</option>
-                                                    <option value="BB">Barbados</option>
-                                                    <option value="BY">Belarus</option>
-                                                    <option value="PW">Belau</option>
-                                                    <option value="BE">Belgium</option>
-                                                    <option value="BZ">Belize</option>
-                                                    <option value="BJ">Benin</option>
-                                                    <option value="BM">Bermuda</option>
-                                                    <option value="BT">Bhutan</option>
-                                                    <option value="BO">Bolivia</option>
-                                                    <option value="BQ">Bonaire, Saint Eustatius and Saba</option>
-                                                    <option value="BA">Bosnia and Herzegovina</option>
-                                                    <option value="BW">Botswana</option>
-                                                    <option value="BV">Bouvet Island</option>
-                                                    <option value="BR">Brazil</option>
-                                                    <option value="IO">British Indian Ocean Territory</option>
-                                                    <option value="VG">British Virgin Islands</option>
-                                                    <option value="BN">Brunei</option>
-                                                    <option value="BG">Bulgaria</option>
-                                                    <option value="BF">Burkina Faso</option>
-                                                    <option value="BI">Burundi</option>
-                                                    <option value="KH">Cambodia</option>
-                                                    <option value="CM">Cameroon</option>
-                                                    <option value="CA">Canada</option>
-                                                    <option value="CV">Cape Verde</option>
-                                                    <option value="KY">Cayman Islands</option>
-                                                    <option value="CF">Central African Republic</option>
-                                                    <option value="TD">Chad</option>
-                                                    <option value="CL">Chile</option>
-                                                    <option value="CN">China</option>
-                                                    <option value="CX">Christmas Island</option>
-                                                    <option value="CC">Cocos (Keeling) Islands</option>
-                                                    <option value="CO">Colombia</option>
-                                                    <option value="KM">Comoros</option>
-                                                    <option value="CG">Congo (Brazzaville)</option>
-                                                    <option value="CD">Congo (Kinshasa)</option>
-                                                    <option value="CK">Cook Islands</option>
-                                                    <option value="CR">Costa Rica</option>
-                                                    <option value="HR">Croatia</option>
-                                                    <option value="CU">Cuba</option>
-                                                    <option value="CW">CuraÇao</option>
-                                                    <option value="CY">Cyprus</option>
-                                                    <option value="CZ">Czech Republic</option>
-                                                    <option value="DK">Denmark</option>
-                                                    <option value="DJ">Djibouti</option>
-                                                    <option value="DM">Dominica</option>
-                                                    <option value="DO">Dominican Republic</option>
-                                                    <option value="EC">Ecuador</option>
-                                                    <option value="EG">Egypt</option>
-                                                    <option value="SV">El Salvador</option>
-                                                    <option value="GQ">Equatorial Guinea</option>
-                                                    <option value="ER">Eritrea</option>
-                                                    <option value="EE">Estonia</option>
-                                                    <option value="ET">Ethiopia</option>
-                                                    <option value="FK">Falkland Islands</option>
-                                                    <option value="FO">Faroe Islands</option>
-                                                    <option value="FJ">Fiji</option>
-                                                    <option value="FI">Finland</option>
-                                                    <option value="FR">France</option>
-                                                    <option value="GF">French Guiana</option>
-                                                    <option value="PF">French Polynesia</option>
-                                                    <option value="TF">French Southern Territories</option>
-                                                    <option value="GA">Gabon</option>
-                                                    <option value="GM">Gambia</option>
-                                                    <option value="GE">Georgia</option>
-                                                    <option value="DE">Germany</option>
-                                                    <option value="GH">Ghana</option>
-                                                    <option value="GI">Gibraltar</option>
-                                                    <option value="GR">Greece</option>
-                                                    <option value="GL">Greenland</option>
-                                                    <option value="GD">Grenada</option>
-                                                    <option value="GP">Guadeloupe</option>
-                                                    <option value="GT">Guatemala</option>
-                                                    <option value="GG">Guernsey</option>
-                                                    <option value="GN">Guinea</option>
-                                                    <option value="GW">Guinea-Bissau</option>
-                                                    <option value="GY">Guyana</option>
-                                                    <option value="HT">Haiti</option>
-                                                    <option value="HM">Heard Island and McDonald Islands</option>
-                                                    <option value="HN">Honduras</option>
-                                                    <option value="HK">Hong Kong</option>
-                                                    <option value="HU">Hungary</option>
-                                                    <option value="IS">Iceland</option>
-                                                    <option value="IN">India</option>
-                                                    <option value="ID">Indonesia</option>
-                                                    <option value="IR">Iran</option>
-                                                    <option value="IQ">Iraq</option>
-                                                    <option value="IM">Isle of Man</option>
-                                                    <option value="IL">Israel</option>
-                                                    <option value="IT">Italy</option>
-                                                    <option value="CI">Ivory Coast</option>
-                                                    <option value="JM">Jamaica</option>
-                                                    <option value="JP">Japan</option>
-                                                    <option value="JE">Jersey</option>
-                                                    <option value="JO">Jordan</option>
-                                                    <option value="KZ">Kazakhstan</option>
-                                                    <option value="KE">Kenya</option>
-                                                    <option value="KI">Kiribati</option>
-                                                    <option value="KW">Kuwait</option>
-                                                    <option value="KG">Kyrgyzstan</option>
-                                                    <option value="LA">Laos</option>
-                                                    <option value="LV">Latvia</option>
-                                                    <option value="LB">Lebanon</option>
-                                                    <option value="LS">Lesotho</option>
-                                                    <option value="LR">Liberia</option>
-                                                    <option value="LY">Libya</option>
-                                                    <option value="LI">Liechtenstein</option>
-                                                    <option value="LT">Lithuania</option>
-                                                    <option value="LU">Luxembourg</option>
-                                                    <option value="MO">Macao S.A.R., China</option>
-                                                    <option value="MK">Macedonia</option>
-                                                    <option value="MG">Madagascar</option>
-                                                    <option value="MW">Malawi</option>
-                                                    <option value="MY">Malaysia</option>
-                                                    <option value="MV">Maldives</option>
-                                                    <option value="ML">Mali</option>
-                                                    <option value="MT">Malta</option>
-                                                    <option value="MH">Marshall Islands</option>
-                                                    <option value="MQ">Martinique</option>
-                                                    <option value="MR">Mauritania</option>
-                                                    <option value="MU">Mauritius</option>
-                                                    <option value="YT">Mayotte</option>
-                                                    <option value="MX">Mexico</option>
-                                                    <option value="FM">Micronesia</option>
-                                                    <option value="MD">Moldova</option>
-                                                    <option value="MC">Monaco</option>
-                                                    <option value="MN">Mongolia</option>
-                                                    <option value="ME">Montenegro</option>
-                                                    <option value="MS">Montserrat</option>
-                                                    <option value="MA">Morocco</option>
-                                                    <option value="MZ">Mozambique</option>
-                                                    <option value="MM">Myanmar</option>
-                                                    <option value="NA">Namibia</option>
-                                                    <option value="NR">Nauru</option>
-                                                    <option value="NP">Nepal</option>
-                                                    <option value="NL">Netherlands</option>
-                                                    <option value="AN">Netherlands Antilles</option>
-                                                    <option value="NC">New Caledonia</option>
-                                                    <option value="NZ">New Zealand</option>
-                                                    <option value="NI">Nicaragua</option>
-                                                    <option value="NE">Niger</option>
-                                                    <option value="NG">Nigeria</option>
-                                                    <option value="NU">Niue</option>
-                                                    <option value="NF">Norfolk Island</option>
-                                                    <option value="KP">North Korea</option>
-                                                    <option value="NO">Norway</option>
-                                                    <option value="OM">Oman</option>
-                                                    <option value="PK">Pakistan</option>
-                                                    <option value="PS">Palestinian Territory</option>
-                                                    <option value="PA">Panama</option>
-                                                    <option value="PG">Papua New Guinea</option>
-                                                    <option value="PY">Paraguay</option>
-                                                    <option value="PE">Peru</option>
-                                                    <option value="PH">Philippines</option>
-                                                    <option value="PN">Pitcairn</option>
-                                                    <option value="PL">Poland</option>
-                                                    <option value="PT">Portugal</option>
-                                                    <option value="QA">Qatar</option>
-                                                    <option value="IE">Republic of Ireland</option>
-                                                    <option value="RE">Reunion</option>
-                                                    <option value="RO">Romania</option>
-                                                    <option value="RU">Russia</option>
-                                                    <option value="RW">Rwanda</option>
-                                                    <option value="ST">São Tomé and Príncipe</option>
-                                                    <option value="BL">Saint Barthélemy</option>
-                                                    <option value="SH">Saint Helena</option>
-                                                    <option value="KN">Saint Kitts and Nevis</option>
-                                                    <option value="LC">Saint Lucia</option>
-                                                    <option value="SX">Saint Martin (Dutch part)</option>
-                                                    <option value="MF">Saint Martin (French part)</option>
-                                                    <option value="PM">Saint Pierre and Miquelon</option>
-                                                    <option value="VC">Saint Vincent and the Grenadines</option>
-                                                    <option value="SM">San Marino</option>
-                                                    <option value="SA">Saudi Arabia</option>
-                                                    <option value="SN">Senegal</option>
-                                                    <option value="RS">Serbia</option>
-                                                    <option value="SC">Seychelles</option>
-                                                    <option value="SL">Sierra Leone</option>
-                                                    <option value="SG">Singapore</option>
-                                                    <option value="SK">Slovakia</option>
-                                                    <option value="SI">Slovenia</option>
-                                                    <option value="SB">Solomon Islands</option>
-                                                    <option value="SO">Somalia</option>
-                                                    <option value="ZA">South Africa</option>
-                                                    <option value="GS">South Georgia/Sandwich Islands</option>
-                                                    <option value="KR">South Korea</option>
-                                                    <option value="SS">South Sudan</option>
-                                                    <option value="ES">Spain</option>
-                                                    <option value="LK">Sri Lanka</option>
-                                                    <option value="SD">Sudan</option>
-                                                    <option value="SR">Suriname</option>
-                                                    <option value="SJ">Svalbard and Jan Mayen</option>
-                                                    <option value="SZ">Swaziland</option>
-                                                    <option value="SE">Sweden</option>
-                                                    <option value="CH">Switzerland</option>
-                                                    <option value="SY">Syria</option>
-                                                    <option value="TW">Taiwan</option>
-                                                    <option value="TJ">Tajikistan</option>
-                                                    <option value="TZ">Tanzania</option>
-                                                    <option value="TH">Thailand</option>
-                                                    <option value="TL">Timor-Leste</option>
-                                                    <option value="TG">Togo</option>
-                                                    <option value="TK">Tokelau</option>
-                                                    <option value="TO">Tonga</option>
-                                                    <option value="TT">Trinidad and Tobago</option>
-                                                    <option value="TN">Tunisia</option>
-                                                    <option value="TR">Turkey</option>
-                                                    <option value="TM">Turkmenistan</option>
-                                                    <option value="TC">Turks and Caicos Islands</option>
-                                                    <option value="TV">Tuvalu</option>
-                                                    <option value="UG">Uganda</option>
-                                                    <option value="UA">Ukraine</option>
-                                                    <option value="AE">United Arab Emirates</option>
-                                                    <option selected="selected" value="GB">United Kingdom (UK)</option>
-                                                    <option value="US">United States (US)</option>
-                                                    <option value="UY">Uruguay</option>
-                                                    <option value="UZ">Uzbekistan</option>
-                                                    <option value="VU">Vanuatu</option>
-                                                    <option value="VA">Vatican</option>
-                                                    <option value="VE">Venezuela</option>
-                                                    <option value="VN">Vietnam</option>
-                                                    <option value="WF">Wallis and Futuna</option>
-                                                    <option value="EH">Western Sahara</option>
-                                                    <option value="WS">Western Samoa</option>
-                                                    <option value="YE">Yemen</option>
-                                                    <option value="ZM">Zambia</option>
-                                                    <option value="ZW">Zimbabwe</option>
+                                                <label class="sr-only">Ülke</label>
+                                                <select asp-for="Customer.ShippingCountry" class="fullwidth" onchange="ShippingCountryChange(this)" asp-items="ViewBag.ShippingCountries">
+                                                    <option value="">Ülke Seçiniz</option>
 
                                                 </select>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label class="sr-only">First Name</label>
-                                                <input type="text" class="form-control input-lg" placeholder="First Name" value="">
+                                                <label class="sr-only">Ad</label>
+                                                <input asp-for="Customer.ShippingFirstName" type="text" class="form-control input-lg" placeholder="Ad">
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label class="sr-only">Last Name</label>
-                                                <input type="text" class="form-control input-lg" placeholder="Last Name" value="">
+                                                <label class="sr-only">Soyad</label>
+                                                <input asp-for="Customer.ShippingLastName" type="text" class="form-control input-lg" placeholder="Soyad">
+                                            </div>
+                                            <div class="col-md-6 form-group">
+                                                <label class="sr-only">TC Kimlik No/Vergi No</label>
+                                                <input asp-for="Customer.ShippingIdentityNumber" type="text" class="form-control input-lg" placeholder="TC Kimlik No/Vergi No">
                                             </div>
                                             <div class="col-md-12 form-group">
-                                                <label class="sr-only">Company Name</label>
-                                                <input type="text" class="form-control input-lg" placeholder="Company Name" value="">
-                                            </div>
-                                            <div class="col-md-12 form-group">
-                                                <label class="sr-only">Address</label>
-                                                <input type="text" class="form-control input-lg" placeholder="Address" value="">
+                                                <label class="sr-only">Firma Adı</label>
+                                                <input asp-for="Customer.ShippingCompanyName" type="text" class="form-control input-lg" placeholder="Firma Adı">
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label class="sr-only">Apartment, suite, unit etc.</label>
-                                                <input type="text" class="form-control input-lg" placeholder="Apartment, suite, unit etc." value="">
+                                                <label class="sr-only">Şehir</label>
+                                                <select asp-for="Customer.ShippingCity" type="text" class="form-control input-lg" placeholder="Şehir" onchange="ShippingCityChange(this)">
+                                                    <option value="">Şehir Seçiniz</option>
+
+                                                </select>
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label class="sr-only">Town / City</label>
-                                                <input type="text" class="form-control input-lg" placeholder="Town / City" value="">
+                                                <label class="sr-only">İlçe</label>
+                                                <select asp-for="Customer.ShippingCounty" type="text" class="form-control input-lg" placeholder="İlçe">
+                                                    <option value="">İlçe Seçiniz</option>
+
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-6 form-group">
+                                                <label class="sr-only">Mahalle/Semt</label>
+                                                <input asp-for="Customer.ShippingDistrict" type="text" class="form-control input-lg" placeholder="Mahalle/Semt">
+                                            </div>
+
+                                            <div class="col-md-6 form-group">
+                                                <label class="sr-only">Cadde/Sokak</label>
+                                                <input asp-for="Customer.ShippingStreet" type="text" class="form-control input-lg" placeholder="Cadde/Sokak">
+                                            </div>
+
+                                            <div class="col-md-6 form-group">
+                                                <label class="sr-only">Apartman,suit,kapı no, vb</label>
+                                                <input asp-for="Customer.ShippingAdress" type="text" class="form-control input-lg" placeholder="Apartman,suit,kapı no, vb">
+                                            </div>
+
+
+                                            <div class="col-md-6 form-group">
+                                                <label class="sr-only">Posta Kodu</label>
+                                                <input asp-for="Customer.ShippingZipCode" type="text" class="form-control input-lg" placeholder="Posta Kodu">
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label class="sr-only">State / County</label>
-                                                <input type="text" class="form-control input-lg" placeholder="State / County" value="">
+                                                <label class="sr-only">E-Posta</label>
+                                                <input asp-for="Customer.ShippingEmail" type="text" class="form-control input-lg" placeholder="E-Posta">
                                             </div>
                                             <div class="col-md-6 form-group">
-                                                <label class="sr-only">Postcode / Zip</label>
-                                                <input type="text" class="form-control input-lg" placeholder="Postcode / Zip" value="">
+                                                <label class="sr-only">Telefon</label>
+                                                <input asp-for="Customer.ShippingPhone" type="text" class="form-control input-lg" placeholder="Telefon">
                                             </div>
 
 
@@ -404,158 +193,172 @@
                             </div>
                         </div>
                         <div class="col-md-12 no-padding">
-                            <textarea class="form-control input-lg" placeholder="Notes about your order, e.g. special notes for delivery" rows="7"></textarea>
+                            <textarea asp-for="ShippingNotes" class="form-control input-lg" placeholder="Teslimat ve Sipariş Notları" rows="7"></textarea>
                         </div>
                     </div>
                 </div>
 
 
 
-            </form>
 
-            <div class="seperator">
-                <i class="fa fa-credit-card"></i>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-6">
-                    <h4 class="upper">Siparişleriniz</h4>
-                    <div class="table table-condensed table-striped table-responsive table table-bordered table-responsive">
-                        <table class="table m-b-0">
-                            <thead>
-                                <tr>
-
-                                    <th class="cart-product-thumbnail">Ürün</th>
-                                    <th class="cart-product-name">Açıklama</th>
+                <div class="seperator">
+                    <i class="fa fa-credit-card"></i>
+                </div>
 
 
-                                    <th class="cart-product-subtotal">Toplam</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Cart.CartItems)
-                                {
-
-
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="upper">Siparişleriniz</h4>
+                        <div class="table table-condensed table-striped table-responsive table table-bordered table-responsive">
+                            <table class="table m-b-0">
+                                <thead>
                                     <tr>
 
+                                        <th class="cart-product-thumbnail">Ürün</th>
+                                        <th class="cart-product-name">Açıklama</th>
 
-                                        <td class="cart-product-thumbnail">
 
-                                            <div class="cart-product-thumbnail-name">@item.Product.Name</div>
+                                        <th class="cart-product-subtotal">Toplam</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Cart.CartItems)
+                                    {
+
+
+                                        <tr>
+
+
+                                            <td class="cart-product-thumbnail">
+
+                                                <div class="cart-product-thumbnail-name">@item.Product.Name</div>
+                                            </td>
+
+                                            <td class="cart-product-description">
+
+                                                <p>
+                                                    @item.Product.Description
+                                                    <span>(@item.Quantity Adet)</span>
+                                                </p>
+                                            </td>
+
+
+
+
+
+                                            <td class="cart-product-subtotal">
+                                                <span class="amount">@item.TotalPrice</span>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <h4>Sipariş Toplam</h4>
+
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="cart-product-name">
+                                            <strong>Sipariş Alt Toplam</strong>
                                         </td>
 
-                                        <td class="cart-product-description">
-
-                                            <p>
-                                               @item.Product.Description
-                                                <span>(@item.Quantity Adet)</span>
-                                            </p>
-                                        </td>
-
-
-
-
-
-                                        <td class="cart-product-subtotal">
-                                            <span class="amount">@item.TotalPrice</span>
+                                        <td class="cart-product-name text-right">
+                                            <span class="amount">₺@string.Format("{0:#,###.##}", Model.Cart.TotalPrice)</span>
                                         </td>
                                     </tr>
-                                }
+                                    <tr>
+                                        <td class="cart-product-name">
+                                            <strong>Kargo</strong>
+                                        </td>
 
-                            </tbody>
+                                        <td class="cart-product-name  text-right">
+                                            <span class="amount">Ücretsiz Kargo</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cart-product-name">
+                                            <strong>KDV</strong>
+                                        </td>
+                                        <td class="cart-product-name  text-right">
+                                            <span class="amount">₺@string.Format("{0:#,###.##}", Model.Cart.TotalPrice * 0.18M)</span>
+                                        </td>
 
-                        </table>
 
+                                    </tr>
+                                    <tr>
+                                        <td class="cart-product-name">
+                                            <strong>Toplam(KDV Dahil)</strong>
+                                        </td>
+
+                                        <td class="cart-product-name text-right">
+                                            <span class="amount color lead"><strong>₺@string.Format("{0:#,###.##}", Model.Cart.TotalPrice * 1.18M)</strong></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="table-responsive">
-                        <h4>Sipariş Toplam</h4>
+                    <div class="col-md-6">
+                        <h4 class="upper">Ödeme Yöntemi</h4>
 
-                        <table class="table">
+                        <table class="payment-method table table-bordered table-condensed table-responsive">
                             <tbody>
                                 <tr>
-                                    <td class="cart-product-name">
-                                        <strong>Sipariş Alt Toplam</strong>
-                                    </td>
-
-                                    <td class="cart-product-name text-right">
-                                        <span class="amount">₺@string.Format("{0:#,###.##}", Model.Cart.TotalPrice)</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="cart-product-name">
-                                        <strong>Kargo</strong>
-                                    </td>
-
-                                    <td class="cart-product-name  text-right">
-                                        <span class="amount">Ücretsiz Kargo</span>
+                                    <td>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="paymentMethod" value="" onclick="$('#bankTransfer').show('fast');"><b class="dark">Havale/EFT</b>
+                                                <br>
+                                            </label>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="cart-product-name">
-                                        <strong>KDV</strong>
-                                    </td>
-                                    <td class="cart-product-name  text-right">
-                                        <span class="amount">₺@string.Format("{0:#,###.##}", Model.Cart.TotalPrice * 0.18M)</span>
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td class="cart-product-name">
-                                        <strong>Toplam(KDV Dahil)</strong>
-                                    </td>
-
-                                    <td class="cart-product-name text-right">
-                                        <span class="amount color lead"><strong>₺@string.Format("{0:#,###.##}", Model.Cart.TotalPrice * 1.18M)</strong></span>
+                                    <td>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="paymentMethod" value="" onclick="$('#bankTransfer').hide('fast');"><b class="dark">Kredi Kartı</b>
+                                            </label>
+                                        </div>
                                     </td>
                                 </tr>
+
                             </tbody>
-
                         </table>
+                        <button type="submit" class="button color button-3d rounded icon-left float-right" style="color:black !important" >Ödemeyi Yap ve Siparişi Tamamla</button>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="bankTransfer" style="display:none">
+
+                            <h4>Havale/EFT Ödemesi Hesap Numaralarımız</h4>
+                            <p>
+                                <strong>Garanti Bankası</strong>
+                                TR6000 2000 3000 4000 5000
+                            </p>
+                            <p>Havale/EFT İşleminde Açıklama Bilgisi Olarak @string.Format("{0:000000}", Model.Id) sipariş numarasını yazınız.</p>
+
+                        </div>
+
 
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <h4 class="upper">Ödeme Yöntemi</h4>
 
-                    <table class="payment-method table table-bordered table-condensed table-responsive">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optionsRadios" value=""><b class="dark">Havale/EFT</b>
-                                            <br>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="optionsRadios" value=""><b class="dark">Kredi Kartı</b>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                    <a class="button color button-3d rounded icon-left float-right" style="color:black !important" href="#"><span>Ödemeyi Yap ve Siparişi Tamamla</span></a>
                 </div>
+
+
 
             </div>
-
-
-
         </div>
-    </div>
-</section>
+    </section>
+</form>
 <!-- END: SHOP CHECKOUT -->
 <!-- DELIVERY INFO -->
 <section class="background-grey p-t-40 p-b-0">
@@ -594,3 +397,81 @@
     </div>
 </section>
 <!-- END: DELIVERY INFO -->
+@section scripts{ 
+
+    <script>
+        function BillingCountryChange(elm)
+        {
+            //$get metodu jquery'nin ajax  metodudur,sayfa yenilenmeden veri getirmeyi sağlar
+            //bu metod ile shop/GetCities actionunu çağırdık
+            //parametre olarak countryId'yi verdik(seçili ülke değerini)
+            //$.get metodundan sonuç döndüğünde gelen şehirler JSON formatında gelecektir.
+            $.get('@Url.Action("GetCities","Shop")', { countryCode: $(elm).val() }, function (data) {
+                var $select = $("#Customer_BillingCity");
+                $select.empty();
+                $select.append('<option value="">Şehir Seçiniz</option>');
+                $.each(data, function (key, value) {
+                    $select.append('<option value="' +value.code + '">' + value.name + '</option>');
+
+                });
+               
+            });
+
+        }
+            function BillingCityChange(elm)
+        {
+            //$get metodu jquery'nin ajax  metodudur,sayfa yenilenmeden veri getirmeyi sağlar
+            //bu metod ile shop/GetCities actionunu çağırdık
+            //parametre olarak countryId'yi verdik(seçili ülke değerini)
+            //$.get metodundan sonuç döndüğünde gelen şehirler JSON formatında gelecektir.
+            $.get('@Url.Action("GetCounties","Shop")', { cityCode: $(elm).val() }, function (data) {
+                var $select = $("#Customer_BillingCounty");
+                $select.empty();
+                $select.append('<option value="">İlçe Seçiniz</option>');
+                $.each(data, function (key, value) {
+                    $select.append('<option value="' +value.code + '">' + value.name + '</option>');
+
+                });
+               
+            });
+
+        }
+          function ShippingCountryChange(elm)
+        {
+            //$get metodu jquery'nin ajax  metodudur,sayfa yenilenmeden veri getirmeyi sağlar
+            //bu metod ile shop/GetCities actionunu çağırdık
+            //parametre olarak countryId'yi verdik(seçili ülke değerini)
+            //$.get metodundan sonuç döndüğünde gelen şehirler JSON formatında gelecektir.
+            $.get('@Url.Action("GetCities","Shop")', { countryCode: $(elm).val() }, function (data) {
+                var $select = $("#Customer_ShippingCity");
+                $select.empty();
+                $select.append('<option value="">Şehir Seçiniz</option>');
+                $.each(data, function (key, value) {
+                    $select.append('<option value="' +value.code + '">' + value.name + '</option>');
+
+                });
+               
+            });
+
+        }
+            function ShippingCityChange(elm)
+           {
+            //$get metodu jquery'nin ajax  metodudur,sayfa yenilenmeden veri getirmeyi sağlar
+            //bu metod ile shop/GetCities actionunu çağırdık
+            //parametre olarak countryId'yi verdik(seçili ülke değerini)
+            //$.get metodundan sonuç döndüğünde gelen şehirler JSON formatında gelecektir.
+            $.get('@Url.Action("GetCounties","Shop")', { cityCode: $(elm).val() }, function (data) {
+                var $select = $("#Customer_ShippingCounty");
+                $select.empty();
+                $select.append('<option value="">İlçe Seçiniz</option>');
+                $.each(data, function (key, value) {
+                    $select.append('<option value="' +value.code + '">' + value.name + '</option>');
+
+                });
+               
+            });
+
+        }
+
+    </script>
+}

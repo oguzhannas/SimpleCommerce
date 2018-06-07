@@ -85,12 +85,35 @@ namespace SimpleCommerce.Controllers
                 return RedirectToAction("Login", "Account");
             }
             var order = GetOrder(owner);
-            ViewBag.Countries =new SelectList(_context.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(),"Code","Name");
+            ViewBag.BillingCountries =new SelectList(_context.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(),"Code","Name");
+            ViewBag.ShippingCountries = new SelectList(_context.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(), "Code", "Name");
             return View(order);
         }
-        public Order GetOrder(string owner)
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Checkout (Order order)
         {
-            Order order = _context.Orders.Where(o => o.Owner == owner).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+            return RedirectToAction("CheckoutCompleted",new { orderId = order.Id });
+            }
+            ViewBag.BillingCountries = new SelectList(_context.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(), "Code", "Name",order.Customer.ShippingCountry);
+            ViewBag.ShippingCountries = new SelectList(_context.Regions.Where(r => r.RegionType == RegionType.Country).OrderBy(o => o.Name).ToList(), "Code", "Name",order.Customer.ShippingCountry);
+            return View(order);
+            
+        }
+        public IActionResult CheckoutCompleted(int orderId)
+        {
+            return View(model:orderId);
+        }
+
+        private Order GetOrder(string owner)
+        {
+            var cartId = GetCart(owner).Id;
+            Order order = _context.Orders.Where(o => o.CartId == cartId).FirstOrDefault();
             if(order == null)
             {
                 order = new Order();
@@ -101,7 +124,27 @@ namespace SimpleCommerce.Controllers
             }
             return order;
         }
-        
-      
+
+
+        public IList<Region> GetCities(string countryCode)
+        {
+            var id = _context.Regions.FirstOrDefault(r => r.Code == countryCode).Id;
+            var cities = _context.Regions.Where(r => r.ParentRegionId == id && r.RegionType == RegionType.City).OrderBy(o => o.Name).ToList();
+            return cities;
+        }
+        public IList<Region> GetCounties(string cityCode)
+        {
+            var id = 0;
+            if (!string.IsNullOrEmpty(cityCode))
+
+            {
+            
+            id = _context.Regions.FirstOrDefault(r => r.Code == cityCode).Id;
+            }
+            var counties = _context.Regions.Where(r => r.ParentRegionId == id && r.RegionType == RegionType.County).OrderBy(o => o.Name).ToList();
+            return counties;
+        }
+
+
     }
 }
