@@ -35,9 +35,19 @@
 <form method="post" class="sep-top-md">
     <input asp-for="CartId" type="hidden" />
     <input asp-for="CustomerId" type="hidden" />
+    <input asp-for="Id" type="hidden" />
     <section id="shop-checkout">
         <div class="container">
             <div class="shop-cart">
+                @if(!string.IsNullOrEmpty(ViewBag.ErrorCode))
+                {
+                    <div class="alert alert-danger">
+
+                        Bir hata oluştu,lütfen daha sonra tekrar deneyiniz.
+                    </div>
+
+                }
+
 
                 <div class="row">
                     <div class="col-md-6 no-padding">
@@ -316,7 +326,7 @@
                                     <td>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="paymentMethod" value="" onclick="$('#bankTransfer').show('fast');"><b class="dark">Havale/EFT</b>
+                                                <input type="radio" name="paymentMethod" value="BankTransfer" onclick="$('#bankTransfer').show('fast');"><b class="dark">Havale/EFT</b>
                                                 <br>
                                             </label>
                                         </div>
@@ -326,7 +336,7 @@
                                     <td>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="paymentMethod" value="" onclick="$('#bankTransfer').hide('fast');"><b class="dark">Kredi Kartı</b>
+                                                <input type="radio" name="paymentMethod" value="CC" onclick="$('#bankTransfer').hide('fast');"><b class="dark">Kredi Kartı</b>
                                             </label>
                                         </div>
                                     </td>

@@ -136,7 +136,7 @@ namespace SimpleCommerce.Areas.Admin.Controllers
                     //dosya adı entitiy'e atanır
                     slide.Photo = File.FileName;
                 }
-                _context.Add(slide);
+                _context.Update(slide);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
