@@ -177,10 +177,12 @@
                                     <li class="dropdown">
                                         <a href="/#" onclick="window.location='@Url.Action("Index","Products")';">ürünler <i class="fa fa-angle-down"></i> </a>
                                         <ul class="dropdown-menu">
+                                            <a href="@Url.Action("Index","Products")">Tüm Ürünler </a>
                                             @foreach (var item in ViewBag.Categories)
                                             {
+
                                                 <li>
-                                                    <a href="@Url.Action("Index","Products",new { categoryId = item.Id })" >@item.Name </a>
+                                                    <a href="@Url.Action("Index","Products",new { categoryId = item.Id })">@item.Name </a>
 
                                                 </li>
 
