@@ -22,7 +22,8 @@ namespace SimpleCommerce.Controllers
             ViewBag.ProductsCategories = _context.Categories.Include(c => c.Products).ToList();//include ile kategorilerdeki ürünlerin içindeki sayıyı yazıyor
             ViewBag.SelectedCategory = _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
             ViewBag.LatestProducts = _context.Products.Where(k=> k.IsPublished ==true).OrderBy(o => o.CreateDate).Take(3).ToList();
-            var products = _context.Products.Where(c =>( c.CategoryId!=0?c.CategoryId == categoryId:true) && c.IsPublished == true);
+            
+            var products = _context.Products.Where(c =>( categoryId!=0?c.CategoryId == categoryId:true) && c.IsPublished == true);
             switch (order){
                 case "date-asc":
                     products = products.OrderBy(o => o.CreateDate);

@@ -175,7 +175,7 @@
                                     </li>
 
                                     <li class="dropdown">
-                                        <a href="/#">ürünler <i class="fa fa-angle-down"></i> </a>
+                                        <a href="/#" onclick="window.location='@Url.Action("Index","Products")';">ürünler <i class="fa fa-angle-down"></i> </a>
                                         <ul class="dropdown-menu">
                                             @foreach (var item in ViewBag.Categories)
                                             {
